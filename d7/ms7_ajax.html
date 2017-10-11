@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+
+  ;(function() {
+    "use strict";
+
+    $(document).on('click', '#btn', function() {
+      //.off funktioniert bei Eventblubbing nicht und ich möchte ja dann weiter klicken
+      // will User zeigen, da passiert was und sagen, er soll auf button klicken
+
+      //document.getElementByI('ausgabe').innerHTML = "lädt ...";
+      // ein fixiertes Element
+      $('<div id="ajaxloading">')
+        .css({
+          position: 'fixed',
+          top:0,
+          left:0,
+          right:0,
+          bottom:0,
+          'z-index' : 2147483647,
+          //oder zIndex:100,
+          background: 'rgba(0,0,0,0.5)',
+          color: '#fff',
+					display: 'flex',
+					'align-items':'center',
+					'justify-content': 'center',
+					'text-align':'center'
+
+        })
+        .html('<div>Bitte warten... <br><img src="ajax-loader.gif"></div>') //ajaxload.gif
+        .appendTo('body');
+
+      var request = new XMLHttpRequest();
+      request.open('GET', 'http://wifi.1av.at/507/test.php' );
+      request.send();
+      //kann erst in div schreiben, wenn server antwortet. XMLHttpRequest hat Eventlistener, hat untersch. Stati, --> wenn er 4 hat, dann tun wir was
+      //Immer wenn sich status ändert, tut Eventlistener was
+      request.onreadystatechange = function() {
+        // was ist readystate? und nur, wenn er 4 hat, dann tun wir was
+        if(request.readyState == 4) {// dann hat Server geantwortet
+          document.getElementById('ausgabe').innerHTML = request.responseText;
+          $('#ajaxloading').remove();
+        }
+      }
+
+    }); // onclick #btn
+
+
+
+
+
+  }());
+  //Quellübergreifende (Cross-Origin) Anfrage blockiert: Die Gleiche-Quelle-Regel verbietet das Lesen der externen
+  // Ressource auf http://wifi.1av.at/507/test.php. (Grund: CORS-Kopfzeile 'Access-Control-Allow-Origin' fehlt).
+  //html-server muss an selben domain liegen --> kann vom Server aus erlauben, dass Zugriffe auch von außerhalb erlaubt sind
+  </script>
+
+  <style>
+		/*#ajaxloading > div {background:red; align-self:center; margin:0 auto; text-align:center; } brauch ich nicht mehr
+		weil oben  Code nach display:flex*/
+  </style>
+
+  </head>
+<body>
+  <button id="btn">Klick mich</button>
+<div id="ausgabe">
+
+</div>
+</body>
+</htlm>

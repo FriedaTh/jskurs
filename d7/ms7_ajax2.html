@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+	;(function() {
+		"use strict";
+		//http ://wifi.1av.at/507/r_get_html.php
+		//schicken Date mit GET-Parameter an Server und bekommen HTML zurück
+		//GET-Parameter, Response HTML/Text --> als Text kann ich formatiert json zurück bekommen
+		//Welche Daten schicke ich?
+		//Parameter "x"
+		$(document).on('click','#btn1', function(){
+			var x = $('#x').val();
+			//Request ...
+			$.ajax({
+				//url:'http://wifi.1av.at/507/r_get_html.php?x=' + x, und method:'GET'
+				url:'http://wifi.1av.at/507/r_post_html.php',
+				method: 'POST',
+				data:{x:x}, //jquery nimmt dieses objekt und wandelt es selbst um in: ?x=x
+				dataType: 'html', //das, was ich vom Server zurückbekomme contentType ist das, was ich hinschicke
+				success:function(responsedata){ //callback-funktion:wenn request erfolgreich, dann tu was
+					var response = JSON.parse(responsedata);
+					console.log(response.x);
+				}
+			});
+			$.ajax({
+				//url:'http://wifi.1av.at/507/r_get_html.php?x=' + x, und method:'GET'
+				url:'http://wifi.1av.at/507/r_post_json.php',
+				method: 'POST',
+				data:{x:x},
+				//dataType: 'json', brauche ich nicht, wenn Server weiß, was er schicken muss,
+				success:function(responsedata){ //callback-funktion:wenn request erfolgreich, dann tu was
+					// var response = JSON.parse(responsedata); Antwort muss nicht mehr geparst werden, weil Server schickt json
+					console.log(responsedata.x);
+				},
+				error: function(){
+
+				},
+				complete: function() {
+					//blende overlay aus, egal ob was zurückkommt oder nicht
+				}
+			});
+			// selbe Funktion wie bei success
+			//$.ajax({.....}).done( function(){} );
+
+			//schicken Daten zum Server als json-Datei
+			$.ajax({
+				//url:'http://wifi.1av.at/507/r_get_html.php?x=' + x, und method:'GET'
+				url:'http://wifi.1av.at/507/r_get_jsonp.php',
+				method: 'GET',
+				data:{x:x}, //muss Daten wegen jquery stringifizieren, schicken Daten hier als json
+				dataType: 'jsonp',
+				jsonpCallback: 'nameOfCallbackFunction', // wird vom Server definiert, wie diese Callback-Funktion heißt
+				success:function(responsedata){
+
+					console.log('GET>JSONP',responsedata.x);
+				}
+			});
+
+			$.ajaxSetup({ //kann ich einmal im Skript angeben, wenn ich immer post verwenden
+				method:'POST',
+				timeout:500 //Achtung: es gibt auch vom Browser selbst Obergrenzen
+			});
+
+
+		});
+
+	}());
+	</script>
+
+  <style>
+  </style>
+
+  </head>
+<body>
+	<input type="text" id="x"><br>
+<button id="btn1">absenden</button>
+</body>
+</htlm>
