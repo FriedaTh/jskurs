@@ -19,8 +19,9 @@
 
           //var xml = $.parseXML(data);
           var xml = data;
+          var select;
           $('Cube > Cube > Cube',xml).each(function() {
-            console.log($(this).attr('currency') );
+            $(this).attr('currency')appendTo();
 
           });
 
