@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');//statt * können ip-adresssen stehen
 header('Access-Control-Headers: Origin, X-Requested-With, Content-Type, Accept');
 header('Content-Type: application/json'); //Server weiß so, was er schicken soll
 //*.. alle dürfen datei ansprechen

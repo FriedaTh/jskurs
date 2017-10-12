@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+	;(function() {
+		"use strict";
+  var getECB = function() {
+		$('#eingabe,#currency').val('');
+    $.ajax({
+        //url: 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml',
+        url: 'http://wifi.1av.at/507/ecb.php',
+        method:'GET',
+        dataType: 'xml',
+
+        success:function(data){
+
+          //var xml = $.parseXML(data);
+          var xml = data, valueC, euro, rate, ergebnis;
+
+          $('Cube > Cube > Cube',xml).each(function() {
+						valueC = $(this).attr('currency');
+						rate = $(this).attr('rate');
+
+          $('<option value="' + rate + '">' + valueC + '</option>').appendTo('select');
+
+
+
+					});
+					$('#currency').on('keyup change', function() {//ein Eventlistener, ein
+						rate = $(this).val()*1;
+						euro = $('#eingabe').val()*1;
+						ergebnis = rate*euro;
+						$('#ausgabe').html(ergebnis);
+					});
+				}
+    });
+  }// getECB
+
+	$(document).ready(getECB);
+}());
+
+	</script>
+
+  <style>
+    html { font-size: 2em; }
+  </style>
+
+  </head>
+<body>
+  <input type="text" id="eingabe">
+  <select id="currency">
+    <option>bitte wählen ...</option>
+
+
+  </select>
+	<div id="ausgabe">
+	</div>
+</body>
+</htlm>
