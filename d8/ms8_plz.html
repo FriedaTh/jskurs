@@ -33,9 +33,14 @@ var getData = function() {
         });
 
        $('#plz').on('change', function() {
+         $('<option>').empty();
           eingabe = $(this).val();
-          for(eingabe in orte) {
-            console.log(orte);
+          for( var i in orte) {
+              if(eingabe == i) {
+
+                $('<option value="' +orte[i] + '">' + orte[i] + '</option>').appendTo('select');
+              }
+
           }
 
 
@@ -62,7 +67,7 @@ $(document).ready(getData);
 <body>
   PLZ: <input type="text" id="plz" maxlength="4">
  ORT: <select id="orte">
-        <option>bitte wählen ...</option>
+
         <!-- <option value="">Wien</option> -->
       </select>
 </body>
