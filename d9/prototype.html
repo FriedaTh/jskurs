@@ -1,0 +1,104 @@
+Prototype1
+
+mache Klasse S
+var S = function() {
+  this.x =1;
+  this.y =2;
+  this.add = funtion(){
+    return this.x + this.y;
+  }
+
+  this.toString = function() { return 'huhu'; }
+}
+
+var mathe = new S();
+mathe.x =5;
+console.log(mathe.add());
+
+// hier gibt es PT-Unterobjekt, mit dem ich nachträglich Zugriff auf Klasse habe, kann dann diese Klasse
+// durch eine Multiplikation erweitern
+S.prototype.multiply = function(){
+  return this.x = this.y;
+}
+console.log('multiply',mathe.multiply() );
+console.log(mathe.toString() );
+
+// Prototype-chain --> obwohl ich toString nie verwendet habe , gibt es sie in meiner Klassen
+// könnte aber toString in meiner Klasse überschreiben
+//hat das Objekt eine eigene Funktion toString? Wenn ja, dann nehme ich die. Wenn nein, dann nehme ich die übergeordnete, die auch
+//weiter bestehen bleibt
+// hasOwnProperty('z') --> wenn ich z über prototype erzeuge ist es false, wenn ich z über objekt erzeuge true
+
+
+-----------------------------------------------------------------------------------
+
+Ich kann im Konstruktor private VAriable definieren, die ich von außen nicht verändern kann
+var privat;
+var konto =0;
+
+var S = function(a) {
+  var privat;
+  var konto =0;
+  this.x =a;
+  this.y =2;
+  this.add = funtion(){
+    return this.x + this.y;
+  }
+
+  this.machGeld(i) {}
+
+  this.toString = function() { return 'huhu'; }
+}
+
+
+// auf a kann ich mit prototype nicht zugreifen, weil sie lokal in Klasse gilt
+S.prototype.multiply = function(){
+  return a = this.y;
+}
+
+
+Array.prototype.pushOnlyNumber = function (i) {
+  if( isFinite(i)) this.push(i);
+}
+
+Array.prototye.delete = function(i){
+  this.splice(i,1);
+}
+
+var a = [];
+a.pushOnlyNumber(1);
+a.pushOnlyNumber('a');
+console.log(a);
+console.log(Prototype.Array);
+
+---------------------------------------------------
+$.fn.m = function(ende){
+  console.log(this);
+  if(!ende) $.fn.m(true)
+  $.fn
+}
+
+$(document).ready (function(){
+  $('button').m(false);
+});
+
+// this im plugin ist das jquery -Objekt, deshalb brauch ich nicht $
+
+// this-aufrufe 3 Möglichkeiten
+//this kann nicht überschrieben werden, könnte mir helfen über Zwischenspeicherung in Variable oder:
+//schöneres Vorgehen:
+//Funktion ist wieder Datentyp, ein Objekt und hat auch wieder Methoden, zb. bind(), mit der man an Funktion Kontext hängen kann, von dem man aufrufen kann
+//apply() Rufe Funktion mit apply an und kann sagen, was der Kontext ist, mit bind() definiere ich es einmal, mit apply kann ich es mit jedem Aufruf ändern
+
+var f = function(){
+  console.log(this);
+}
+
+f(); //window
+f.apply( {} ) // Objekt, übergebe ein leeres Objekt
+// Wenn ich möchte, dass this immer this ist if(!ende) $.fn.m.apply(this, [true])
+
+Zusammenfassend:
+
+Prototype = Sammlung aller Methoden, Attribute meiner KLasse
+Mit Instaziierung erzeuge ich neues Objekt, das auf diese zugreift.

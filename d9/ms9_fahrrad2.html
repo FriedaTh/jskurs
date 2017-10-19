@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+	;(function() {
+		"use strict";
+var Bike = function() {
+	this.farbe = '#000';
+	this.v = 0;
+	this.x =0;
+	this.createSVG();
+}
+
+Bike.prototype.move = function() {
+	this.x += this.v;
+}
+
+Bike.prototype.createSVG = function() {
+	var svgCodeBike = $('#bike_template').html();
+	$(svgCodeBike).appendTo('body').find('path').attr('fill', this.farbe);
+}
+
+var bikes = [];
+$(document).ready( function() {
+	//bikes.push(new Bike('red')) 
+	//b1.farbe = "red";
+	//b1.createSVG();
+});
+$(document).on('click','button', function () {
+
+})
+	}());
+	</script>
+
+  <style>
+  </style>
+
+  </head>
+<body>
+
+</body>
+</htlm>

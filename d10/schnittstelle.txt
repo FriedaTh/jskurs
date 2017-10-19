@@ -1,0 +1,64 @@
+Fragen, Antworten und highscore liegen am Server
+
+Was möchte ich zurückbekommen?
+url: wifi.1av.at/507/q.php
+
+Request-Methode: POST
+Response-Typ: JSON
+Charset: UTF-8
+
+Welche Anfragen gibt es?
+1) Frage vom Server laden ()
+
+
+
+  REQUEST: Name:Wert
+    'anfrageart': 'neuefrage' (datentyp ist STRING)
+    'level': 0-4 (INTEGER)
+
+    RESPONSE
+    {
+      'frageid': (INTEGER)
+      'frage': (STRING)
+      'antworten': [ {
+        antwortid: INTEGER,
+        text: STRING
+        } ] (ARRAY mit ANTWORT-Objekten)
+    }
+
+
+2) Überprüfe Antwort
+  REQUEST: Name:Wert
+  'anfrageart': 'ueberprüfeantwort' (STRING)
+  'id': (INTEGER)
+  'antwortid': (INTEGER)
+
+  RESPONSE
+  {
+    'richtigid': (INTEGER)
+    'richtig' : (BOOLEAN)
+  }
+
+2) Highscore übermitteln , gib mir Tabelle der Highscores zurück
+
+  REQUEST:
+  'anfrageart' : 'highscore' (STRING)
+  'name': (STRING)
+  'score': (INTEGER)
+  'anzahl' : (INTEGER, -1 === alle)
+
+  RESPONSE
+  {
+    'bestenliste': [
+    {
+      'name': (STRING),
+      'punkte': (INTEGER)
+    }
+    ] (ARRAY aus Einträgen)
+  }
+
+1 Skript soll alle 3 Anfragen abdecken. -- > Im Request muss stehen, was ich möchte
+
+Anmerkungen:
+
+error: unbekannte Anfrageart

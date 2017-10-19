@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+	// belegen einer globalen Variablen $.quiz = {} --> kann dann von überall zugreifen
+    var quiz = {
+			level:0,
+			punkte:0,
+			spieler:'',
+			ladeNeueFrage:function() {
+
+				$(document).on('click','#start', function(event){
+					event.preventDefault();
+					var spieler = $('input').val();
+					console.log(spieler);
+
+					$.ajax({
+						url: 'http://wifi.1av.at//507/q.php',
+						method: 'POST',
+						data: {
+							'anfrageart': 'neuefrage',
+							'level':0,
+						},
+						dataType:'json',
+						scriptCharset: 'UTF-8',
+						success: function(frage) {
+								console.log(frage);
+							}
+
+						});
+					});
+				}
+
+			}
+		
+
+  </script>
+
+  <style>
+
+		html, body { height: 100%; padding:0; margin:0;}
+		#wrapper { border: 5px solid green; display:flex; justify-content: center;
+		align-items:center; height:100%;
+		/*position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;*/
+	}
+
+		form {border:5px solid red; text-align:center; }
+		#deinname { display: block; margin:0 auto;}
+  </style>
+
+  </head>
+<body>
+	<div id="wrapper">
+	<form  method="post" action="?">
+		<label>Dein Name</label>
+	<input type="text" id="deinname">
+	<button>Los geht's</button>
+</form>
+</div>
+</body>
+</htlm>

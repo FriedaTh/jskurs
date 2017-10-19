@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<title>OOP</title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+
+  <script>
+	// objekte erzeugen durch geschwungene Klammern, allerdings nur, wenn ich dieses eine Objekt möchte
+	// möchte ich mehrere Objekte erzeugen, dann nehme ich Klassen
+	var o = {
+			farbe:'rot',
+			fahren:function(){}
+	};
+
+//Konstruktor-Funktion sieht wie normale Funktion aus, aber Konstruktor-Funktion hat nie Rückgabewert(return)
+//eine Konstruktor-Funktion erzeugt schon was
+//this hat hier nichts mehr mit Dom zu tun
+// this ist hier global, dh this ist hier window console.log( this );
+// führe ich K('rot',100); bei Event aus, dann ist es das Objekt, bei dem der Eventlistener ausgeführt wird
+// $(document).on('click','button'K); hier ist es button
+var farbe = 'schwarz';
+var K = function(a,b) {
+	this.farbe = a;
+	this.preis = b;
+	this.textFahrrad = function(){
+		// b ist hier eine lokale Variable, Wenn ich preis von außen ändern möchte, dann muss ich hier this.preis schreiben
+		console.log('Das Fahrrad kostet: ' + b);
+		console.log('Das Fahrrad kostet: ' + this.preis);
+
+
+	}
+	console.log(this); // this ist nun ist ein Objekt
+	//kein return!
+}
+
+/*K('rot',100);
+$(document).on('click','button'K);*/
+// this ist hier nun ein Objekt, das ich in oK abspeichere
+var oK = new K('rot',100);
+var ok2 = new K('blau',100);
+
+	</script>
+
+  <style>
+  </style>
+
+  </head>
+<body>
+
+</body>
+</htlm>

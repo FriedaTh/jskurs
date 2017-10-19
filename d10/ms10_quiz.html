@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.2.1.min.js"></script>
+  <script>
+;( function() {
+	var quiz = {
+		level:0,
+		punkte:0,
+		spieler:'',
+		laedt: function() { $('#loading').show(); $()},
+		ladeNeueFrage:function() {
+				// definiere ein ajaxSetup (url, method, dataType)
+				$.ajax({
+					//url: 'http://wifi.1av.at//507/q.php',
+					//method: 'POST',
+					data: {
+						'anfrageart': 'neuefrage',
+						'level': this.level
+					},
+					//dataType:'json',
+
+					success: function(data) {
+							$('#frage1 h1').html(data.frage);
+							// statt each for in
+							//Array.prototype.shuffle = function(){}
+							//data.antworten.shuffle()
+							//schreibe die antwortid als attribut in den button oder
+							// setze data ist eine jquery Methode, kann später mit data direkt drauf zugreifen
+							//data('antwortid',data.antworten[i].antwortid)
+							// muss dem button ein event mitgeben
+							//checkAntwort neue Anfrage an Server
+							// sollte verhindern, dass alle buttons ganz schnell angeklickt werden -> nehme den eventlistener weg
+							//--> $('#frage button').off('click');
+							
+						$.each(data.antworten, function(key, value) { console.log(key);
+							var antworten = {
+									'antwot':
+
+							}
+						});
+							/*$.each( frage, function( key, value ) {
+									if(key == 'frage') {
+											var question = $('<div>' + value + '</div>')
+										$(question).appendTo('body').css()
+
+									}
+								});*/
+						}
+
+					});
+			}
+
+		}
+
+		$(document).on('click','#start', function(event){
+						event.preventDefault();
+						quiz.spieler = $('input').val();
+						quiz.ladeNeueFrage();
+
+
+		});
+
+
+
+}(jQuery));
+
+	</script>
+
+  <style>
+
+		 body {
+			background: url("quiz.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		html, body { height: 100%; padding:0; margin:0;}
+		#wrapper { border: 5px solid green; display:flex; justify-content: center;
+		align-items:center; height:100%;}
+		form {border:5px solid red; text-align:center; }
+		#deinname { display: block; margin:0 auto;}
+		#frage { font_size: 1.2em; }
+
+  </style>
+
+  </head>
+<body>
+
+	<div id="wrapper">
+	<form  method="post" action="?">
+		<label>Dein Name</label>
+	<input type="text" id="deinname">
+	<button id="start">Los geht's</button>
+</form>
+</div>
+
+</body>
+</htlm>
